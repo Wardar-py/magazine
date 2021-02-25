@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="sidebar">
+    <h3>Категории</h3>
+    <ul>
+        <li class=""{% if not category %} {% endif %}>
+            <a href="{% url "shop:product_list" %}">Все категории</a>
+        </li>
+    {% for cat in categories %}
+        <li >{% if category.slug == cat.slug %} class="" {% endif %}
+        <a href="#">{{ cat.name }}</a>
+{#        {{ cat.get_absolute_url }}#}
+        </li>
+    {% endfor %}
+    <div id="main">
+        <h1>{% if category %}{{ category.name }}{% else %}Продукт{% endif %}</h1>
+        {% for product in products %}
+            <div>
+                <a href="#">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %} {% static "img/0-7.jpg" %}{% endif %}" alt="">
+                </a>
+
+                <a> Цена : {{ product.price }}</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    </ul>
+<div></div>
+</div>
+</body>
+</html>
